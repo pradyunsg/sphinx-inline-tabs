@@ -1,0 +1,20 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "sphinx_inline_tabs"
+author = "Pradyun Gedam"
+author-email = "mail@pradyunsg.me"
+home-page = "https://github.com/pradyunsg/sphinx-inline-tabs"
+description-file = "README.md"
+requires-python = ">=3.5"
+requires = []
+
+[tool.flit.metadata.requires-extra]
+test = [
+  "pytest",
+  "pytest-cov",
+  "pytest-xdist",
+]
+doc = ["sphinx", "myst-parser", "furo"]
