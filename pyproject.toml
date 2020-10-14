@@ -17,4 +17,4 @@ test = [
   "pytest-cov",
   "pytest-xdist",
 ]
-doc = ["sphinx", "myst-parser", "furo"]
+doc = ["sphinx >= 3", "myst-parser", "furo"]
