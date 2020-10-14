@@ -146,7 +146,7 @@ $ py -m pip install sphinx
 ```
 ````
 
-````{tab} Unix
+````{tab} Unix (MacOS / Linux)
 ```console
 $ python -m pip install sphinx
 ```
@@ -159,7 +159,7 @@ $ make.bat html
 ```
 ````
 
-````{tab} Unix
+````{tab} Unix (MacOS / Linux)
 ```console
 $ make html
 ```
