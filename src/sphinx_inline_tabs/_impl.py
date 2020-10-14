@@ -67,6 +67,7 @@ class TabDirective(SphinxDirective):
     """Tabbed content in Sphinx documentation."""
 
     required_arguments = 1
+    final_argument_whitespace = True
     has_content = True
     option_spec = {
         "new-set": directives.flag,
