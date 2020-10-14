@@ -1,4 +1,8 @@
+# Sphinx Inline Tabs
+
 ```{include} ../README.md
+:start-after: <!-- start-include-here -->
+:end-before: <!-- end-include-here -->
 ```
 
 ## Demo
