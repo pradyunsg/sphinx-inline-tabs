@@ -121,7 +121,15 @@ class TabHtmlTransform(SphinxPostTransform):
     """Transform output of TabDirective into usable chunks."""
 
     default_priority = 200
-    builders = ("html", "dirhtml", "singlehtml", "readthedocs")
+    builders = (
+        "html",
+        "dirhtml",
+        "singlehtml",
+        # ReadTheDocs has their custom builders.
+        "readthedocs",
+        "readthedocsdirhtml",
+        "readthedocssinglehtml",
+    )
 
     def run(self):
         """Locate and replace `TabContainer`s."""
