@@ -1,5 +1,7 @@
 # Sphinx Inline Tabs
 
+![demo image](https://raw.githubusercontent.com/pradyunsg/sphinx-inline-tabs/main/docs/_static/demo.png)
+
 <!-- start-include-here -->
 
 Add inline tabbed content to your Sphinx documentation.
