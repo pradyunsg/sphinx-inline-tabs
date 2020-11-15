@@ -14,7 +14,7 @@ This project is available on PyPI, and can be installed using pip:
 pip install sphinx-inline-tabs
 ```
 
-activate this extension in Sphinx by adding the following to your `conf.py`:
+You'll also want to add the extension to `extensions` in `conf.py`:
 
 ```python
 extensions = [
