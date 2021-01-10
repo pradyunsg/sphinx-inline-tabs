@@ -20,7 +20,7 @@ Three is an odd prime.
 ```
 
 ```{tab} Four
-Four is the smallest square!
+Four is not a perfect number.
 ```
 
 This is text after the tabs, which seems to flow right through, which avoids breaking the flow of the document. And, if JavaScript is enabled, the next set of tabs will be synchronised.

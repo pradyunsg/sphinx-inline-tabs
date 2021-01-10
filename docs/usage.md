@@ -21,7 +21,7 @@ This is text before the tabs.
 
 .. tab:: Four
 
-   Four is the smallest square!
+   Four is not a perfect number.
 
 This is text after the tabs, which seems to flow right through, which avoids breaking the flow of the document.
 ```
@@ -41,7 +41,7 @@ Three is an odd prime.
 ```
 
 ```{tab} Four
-Four is the smallest square!
+Four is not a perfect number.
 ```
 
 This is text after the tabs, which seems to flow right through. There is no visual difference for content that's within a tab vs outside it -- adding tabs doesn't disrupt the flow of the document.
@@ -67,7 +67,7 @@ This will break the tab set!
 
 .. tab:: Four
 
-   Four is the smallest square!
+   Four is not a perfect number.
 
 .. tab:: Five
    :new-set:
@@ -96,7 +96,7 @@ This will break the tab set!
 
 .. tab:: Four
 
-   Four is the smallest square!
+   Four is not a perfect number.
 
 .. tab:: Five
    :new-set:
