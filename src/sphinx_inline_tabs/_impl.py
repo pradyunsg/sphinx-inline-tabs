@@ -28,6 +28,13 @@ def setup(app):
     app.add_js_file("tabs.js")
     app.add_css_file("tabs.css")
 
+    from . import __version__  # NOTE: avoiding circular imports
+    return {
+        'parallel_read_safe': True,
+        'parallel_write_safe': True,
+        'version': __version__,
+    }
+
 
 class TabContainer(nodes.container):
     """The initial tree-node for holding tab content."""
