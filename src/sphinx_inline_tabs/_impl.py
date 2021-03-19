@@ -1,6 +1,5 @@
 """The actual implementation."""
 
-import os
 from typing import List
 
 from docutils import nodes
@@ -8,32 +7,6 @@ from docutils.parsers.rst import directives
 from sphinx.transforms.post_transforms import SphinxPostTransform
 from sphinx.util.docutils import SphinxDirective
 from sphinx.util.nodes import NodeMatcher
-
-
-def setup(app):
-    """Entry point for sphinx theming."""
-    app.require_sphinx("3.0")
-
-    app.add_directive("tab", TabDirective)
-    app.add_post_transform(TabHtmlTransform)
-    app.add_node(_TabInput, html=(_TabInput.visit, _TabInput.depart))
-    app.add_node(_TabLabel, html=(_TabLabel.visit, _TabLabel.depart))
-
-    # Include our static assets
-    static_dir = os.path.join(os.path.dirname(__file__), "static")
-    app.connect(
-        "builder-inited", (lambda app: app.config.html_static_path.append(static_dir))
-    )
-
-    app.add_js_file("tabs.js")
-    app.add_css_file("tabs.css")
-
-    from . import __version__  # NOTE: avoiding circular imports
-    return {
-        'parallel_read_safe': True,
-        'parallel_write_safe': True,
-        'version': __version__,
-    }
 
 
 class TabContainer(nodes.container):
