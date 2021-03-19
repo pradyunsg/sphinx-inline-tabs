@@ -18,9 +18,9 @@ You'll also want to add the extension to `extensions` in `conf.py`:
 
 ```python
 extensions = [
-  ...
-  "sphinx_inline_tabs",
-  ...
+    ...,
+    "sphinx_inline_tabs",
+    ...,
 ]
 ```
 
