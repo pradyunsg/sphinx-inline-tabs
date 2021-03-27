@@ -8,8 +8,8 @@ author = "Pradyun Gedam"
 author-email = "mail@pradyunsg.me"
 home-page = "https://github.com/pradyunsg/sphinx-inline-tabs"
 description-file = "README.md"
-requires-python = ">=3.5"
-requires = []
+requires-python = ">=3.6"
+requires = ["sphinx >= 3"]
 
 [tool.flit.metadata.requires-extra]
 test = [
@@ -17,4 +17,4 @@ test = [
   "pytest-cov",
   "pytest-xdist",
 ]
-doc = ["sphinx >= 3", "myst-parser", "furo"]
+doc = ["myst-parser", "furo"]
