@@ -1,6 +1,6 @@
 """Add inline tabbed content to your Sphinx documentation."""
 
-__version__ = "2021.03.28.beta6"
+__version__ = "2021.03.28.dev7"
 __all__ = ["setup"]
 
 
