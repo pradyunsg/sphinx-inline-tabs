@@ -1,15 +1,17 @@
 """Add inline tabbed content to your Sphinx documentation."""
 
+import os
+
 __version__ = "2021.03.28.dev7"
 __all__ = ["setup"]
 
 
 def setup(app):
     """Entry point for sphinx theming."""
-    import os
-    from ._impl import TabDirective, TabHtmlTransform, _TabInput, _TabLabel
-
     app.require_sphinx("3.0")
+
+    # We do imports from Sphinx, after validating the Sphinx version
+    from ._impl import TabDirective, TabHtmlTransform, _TabInput, _TabLabel
 
     app.add_directive("tab", TabDirective)
     app.add_post_transform(TabHtmlTransform)
