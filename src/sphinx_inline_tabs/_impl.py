@@ -1,6 +1,7 @@
 """The actual implementation."""
 
-from typing import List
+import itertools
+from typing import List, Literal
 
 from docutils import nodes
 from docutils.parsers.rst import directives
@@ -74,29 +75,6 @@ class TabDirective(SphinxDirective):
         return [container]
 
 
-def _should_start_new_set(node, current_tab_set):
-    # The current set is empty.
-    if not current_tab_set:
-        return False
-
-    # Explicitly requested for a new tab set.
-    if node["new_set"]:
-        return True
-
-    # From here, this code is trying to figure if the given node immediately
-    # follows the previous tab, and hence should be in the same set.
-    prev_node = current_tab_set[-1]
-    if prev_node.parent != node.parent:  # Different parent
-        return True
-
-    parent = node.parent
-    if parent.index(node) - 1 != parent.index(prev_node):
-        return True
-
-    # This node should be in the same set, so don't start a new one.
-    return False
-
-
 class TabHtmlTransform(SphinxPostTransform):
     """Transform output of TabDirective into usable chunks."""
 
@@ -105,19 +83,63 @@ class TabHtmlTransform(SphinxPostTransform):
 
     def run(self):
         """Locate and replace `TabContainer`s."""
+        self.stack = []  # type: List[List[TabContainer]]
+        self.counter = itertools.count(start=0, step=1)
+
         matcher = NodeMatcher(TabContainer)
-
-        set_counter = 0
-        current_tab_set = []  # type: List[TabContainer]
         for node in self.document.traverse(matcher):  # type: TabContainer
-            if _should_start_new_set(node, current_tab_set):
-                self.finalize_set(current_tab_set, set_counter)
-                set_counter += 1
-                current_tab_set = []
-            current_tab_set.append(node)
+            self._process_one_node(node)
 
-        if current_tab_set:
-            self.finalize_set(current_tab_set, set_counter)
+        while self.stack:
+            tab_set = self.stack.pop()
+            self.finalize_set(tab_set, next(self.counter))
+
+    def _process_one_node(self, node: TabContainer):
+        # There is no existing tab set. Let's start a new one.
+        if not self.stack:
+            self.stack.append([node])
+            return
+
+        # There should never be an empty "current" tab set.
+        assert self.stack[-1]
+
+        close_till = None
+        append = False
+        for tab_set in reversed(self.stack[:]):
+            last_node = tab_set[-1]
+
+            # Is this node a direct child of the last node in this tab-set?
+            is_child = node in last_node.children[1]
+            if is_child:
+                close_till = tab_set
+                append = False
+                break
+
+            # Is this node a sibling of the last node in this tab-set?
+            is_sibling = (
+                node.parent == last_node.parent  # same parent
+                # immediately after the previous node
+                and node.parent.index(last_node) + 1 == node.parent.index(node)
+            )
+            if is_sibling:
+                close_till = tab_set
+                append = True
+                break
+
+        # Close all tab sets as required.
+        if close_till is not None:
+            while self.stack[-1] != close_till:
+                self.finalize_set(self.stack.pop(), next(self.counter))
+        else:
+            while self.stack:
+                self.finalize_set(self.stack.pop(), next(self.counter))
+
+        # Start a new tab set, as required or if requested.
+        if append and not node["new_set"]:
+            assert self.stack
+            self.stack[-1].append(node)
+        else:
+            self.stack.append([node])
 
     def finalize_set(self, tab_set: List[TabContainer], set_counter: int):
         """Add these TabContainers as a single-set-of-tabs."""

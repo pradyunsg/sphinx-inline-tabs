@@ -164,3 +164,41 @@ $ make.bat html
 $ make html
 ```
 ````
+
+## Nesting
+
+```{versionadded} 2020.04.11.beta8
+
+```
+
+Tabs can be nested, allowing the creation of decision trees made with
+tabs. Nested tabs are also synchronised.
+
+````{tab} Windows
+```{tab} Command prompt
+`cmd.exe`
+```
+```{tab} Powershell
+`ps2.exe`
+```
+````
+
+````{tab} Unix (MacOS / Linux)
+
+As can be seen on the other tab, the tab sets will "join" when there's
+no text between different levels of tabs. Adding text between them
+will space them out.
+
+```{tab} Bash
+`bash`
+```
+```{tab} Zsh
+`zsh`
+```
+```{tab} Fish
+`fish`
+```
+```{tab} Powershell
+`ps2`
+```
+````
