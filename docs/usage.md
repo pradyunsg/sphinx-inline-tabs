@@ -40,7 +40,7 @@ Two is the even prime.
 Three is an odd prime.
 ```
 
-```{tab} Four
+```{tab} Four (equal to $2^2$)
 Four is not a perfect number.
 ```
 

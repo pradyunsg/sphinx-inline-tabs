@@ -63,7 +63,11 @@ class TabDirective(SphinxDirective):
 
         # Handle the label (non-plain-text variants allowed)
         textnodes, messages = self.state.inline_text(self.arguments[0], self.lineno)
-        label = nodes.rubric(self.arguments[0], *textnodes)
+        # The signature of this object is:
+        #     __init__(self, rawsource='', text='', *children, **attributes)
+        #
+        # We want to directly populate the children here.
+        label = nodes.label("", "", *textnodes)
 
         # Handle the content
         content = nodes.container("", is_div=True, classes=["tab-content"])
