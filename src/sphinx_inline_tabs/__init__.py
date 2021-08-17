@@ -2,7 +2,7 @@
 
 import os
 
-__version__ = "2021.04.11.dev10"
+__version__ = "2021.08.17.beta10"
 __all__ = ["setup"]
 
 
