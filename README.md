@@ -35,6 +35,6 @@ extensions = [
 
 ## Contributing
 
-sphinx-inline-tabs is a volunteer maintained open source project, and we welcome contributions of all forms. This is a fairly small package, and the development workflow is very similar to [Furo's development workflow](https://pradyunsg.me/furo/contributing/workflow/).
+sphinx-inline-tabs is a volunteer maintained open source project, and we welcome contributions of all forms.
 
 The [Code of Conduct](CODE_OF_CONDUCT.md) applies within all community spaces. If you are not familiar with our Code of Conduct policy, take a minute to read the policy before starting with your first contribution.
