@@ -154,6 +154,14 @@ int main() {
 More code, but it works too!
 ````
 
+````{tab} Text
+```none
+Hello World!
+```
+
+Why not.
+````
+
 ## Synchronisation
 
 Tabs across multiple sets are synchronised according to the label, unconditionally. This requires JavaScript to be enabled on the end user's browser and, thus, should be considered a progressive enhancement.
