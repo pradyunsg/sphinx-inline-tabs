@@ -40,7 +40,7 @@ Two is the even prime.
 Three is an odd prime.
 ```
 
-```{tab} Four (equal to $2^2$)
+```{tab} Four
 Four is not a perfect number.
 ```
 
@@ -106,6 +106,28 @@ This will break the tab set!
 .. tab:: Six
 
    Six is also nice.
+```
+
+## Rich tab labels
+
+This is only possible with Markdown, as far as I know.
+
+````
+```{tab} Three
+Three is an odd prime.
+```
+
+```{tab} Four (equal to $2^2$)
+Four is not a perfect number.
+```
+````
+
+```{tab} Three
+Three is an odd prime.
+```
+
+```{tab} Four (equal to $2^2$)
+Four is not a perfect number.
 ```
 
 ## Code Tabs
