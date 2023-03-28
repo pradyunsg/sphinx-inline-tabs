@@ -1,7 +1,7 @@
 """The actual implementation."""
 
 import itertools
-from typing import List, Literal
+from typing import List
 
 from docutils import nodes
 from docutils.parsers.rst import directives
