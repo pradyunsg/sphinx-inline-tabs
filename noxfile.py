@@ -91,17 +91,19 @@ def get_release_versions(version_file):
         for line in f:
             if line.startswith(marker):
                 version = line[len(marker) + 1 : -2]
-                current_number = int(version.split(".dev")[-1])
+                last_release_date, last_release_number_str = version.split(".dev")
+                last_release_number = int(last_release_number_str)
                 break
         else:
             raise RuntimeError("Could not find current version.")
 
     today = datetime.date.today()
-    if current_number == 0:
-        release_version = today.strftime("%Y.%m.%d")
+    today_date = today.strftime("%Y.%m.%d")
+    if last_release_date.startswith(today_date):
+        release_version = today_date
     else:
-        release_version = today.strftime(f"%Y.%m.%d.{current_number}")
-    next_version = today.strftime(f"%Y.%m.%d.dev{current_number+1}")
+        release_version = today.strftime(f"%Y.%m.%d.{last_release_number}")
+    next_version = today.strftime(f"%Y.%m.%d.dev{last_release_number+1}")
 
     return release_version, next_version
 
