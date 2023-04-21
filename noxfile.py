@@ -29,7 +29,7 @@ def _install_this_project_with_flit(session, *, extras=None, editable=False):
 #
 # Development Sessions
 #
-@nox.session(name="docs-live", python="3.8", reuse_venv=True)
+@nox.session(name="docs-live")
 def docs_live(session):
     if session.posargs:
         docs_dir = session.posargs[0]
@@ -56,7 +56,7 @@ def docs_live(session):
         )
 
 
-@nox.session(python="3.8", reuse_venv=True)
+@nox.session
 def docs(session):
     _install_this_project_with_flit(session, extras=["doc"], editable=False)
 
@@ -64,7 +64,7 @@ def docs(session):
     session.run("sphinx-build", "-b", "dirhtml", "-v", "docs/", "build/docs")
 
 
-@nox.session(python="3.8", reuse_venv=True)
+@nox.session
 def lint(session):
     session.install("pre-commit")
 
@@ -76,7 +76,7 @@ def lint(session):
     session.run("pre-commit", "run", "--all-files", *args)
 
 
-@nox.session(python="3.6")
+@nox.session
 def test(session):
     _install_this_project_with_flit(session, extras=["test"])
 
@@ -97,7 +97,10 @@ def get_release_versions(version_file):
             raise RuntimeError("Could not find current version.")
 
     today = datetime.date.today()
-    release_version = today.strftime(f"%Y.%m.%d.beta{current_number}")
+    if current_number == 0:
+        release_version = today.strftime("%Y.%m.%d")
+    else:
+        release_version = today.strftime(f"%Y.%m.%d.{current_number}")
     next_version = today.strftime(f"%Y.%m.%d.dev{current_number+1}")
 
     return release_version, next_version
