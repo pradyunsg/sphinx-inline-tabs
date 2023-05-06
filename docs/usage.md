@@ -132,34 +132,47 @@ Four is not a perfect number.
 
 ## Code Tabs
 
-The first code block in a tab content will "join" with the tabs, making things fairly clean for language snippets and OS-based command suggestions.
+The first code block in a tab content will "join" with the tabs. Further, you can use `code-tab` as an alias for `tab` + `code-block`.
 
-````{tab} Python
-```python
+```rst
+.. code-tab:: python
+
+   print("Hello World!")
+
+.. code-tab:: cpp C++
+
+   #include <iostream>
+
+   int main() {
+       std::cout << "Hello World!" << std::endl;
+   }
+
+.. tab:: Normal tab
+
+   .. code-block:: none
+
+      Hello World!
+
+   It's pretty simple!
+```
+
+```{code-tab} python
 print("Hello World!")
 ```
 
-It's pretty simple!
-````
-
-````{tab} C++
-```cpp
+```{code-tab} cpp C++
 #include <iostream>
 
 int main() {
-  std::cout << "Hello World!" << std::endl;
+    std::cout << "Hello World!" << std::endl;
 }
 ```
 
-More code, but it works too!
-````
-
-````{tab} Text
+````{tab} Normal tab
 ```none
 Hello World!
 ```
-
-Why not.
+It's pretty simple!
 ````
 
 ## Synchronisation
