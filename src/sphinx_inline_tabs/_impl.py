@@ -87,6 +87,7 @@ class CodeTabDirective(TabDirective):
     optional_arguments = 1
 
     def run(self):
+        """Parse content into code block and attach it to tab directive."""
         self.assert_has_content()
 
         # get tab name
