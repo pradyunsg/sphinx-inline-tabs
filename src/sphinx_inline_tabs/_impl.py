@@ -5,6 +5,7 @@ from typing import List
 
 from docutils import nodes
 from docutils.parsers.rst import directives
+from sphinx.directives.code import CodeBlock
 from sphinx.transforms.post_transforms import SphinxPostTransform
 from sphinx.util.docutils import SphinxDirective
 from sphinx.util.nodes import NodeMatcher
@@ -75,6 +76,40 @@ class TabDirective(SphinxDirective):
 
         container += label
         container += content
+
+        return [container]
+
+
+class CodeTabDirective(TabDirective):
+    """Tabbed code blocks in Sphinx documentations."""
+
+    required_arguments = 1
+    optional_arguments = 1
+
+    def run(self):
+        self.assert_has_content()
+
+        # get tab name
+        if len(self.arguments) > 1:
+            lang, tab_name = self.arguments
+        else:
+            lang = tab_name = self.arguments[0]
+
+        label = nodes.label(tab_name, tab_name)
+
+        # prevent code block from reading tab name part
+        self.arguments = [lang]
+
+        # parse content into code block
+        content_node = nodes.container(is_div=True, classes=["tab-content"])
+        content_node += CodeBlock.run(self)
+
+        # build container
+        container = TabContainer(type="tab", new_set="new-set" in self.options)
+        self.set_source_info(container)
+
+        container += label
+        container += content_node
 
         return [container]
 
