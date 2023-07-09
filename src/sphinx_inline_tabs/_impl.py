@@ -34,12 +34,12 @@ class _GeneralHTMLTagElement(nodes.Element, nodes.General):
             translator.body.append(f"</{node._tagname}>")
 
 
-class _TabInput(_GeneralHTMLTagElement):
+class TabInput(_GeneralHTMLTagElement):
     _tagname = "input"
     _endtag = False
 
 
-class _TabLabel(_GeneralHTMLTagElement):
+class TabLabel(_GeneralHTMLTagElement):
     _tagname = "label"
     _endtag = True
 
@@ -162,12 +162,12 @@ class TabHtmlTransform(SphinxPostTransform):
             title, content = node.children
 
             # <input>, for storing state in radio boxes.
-            input_node = _TabInput(
+            input_node = TabInput(
                 type="radio", ids=[tab_id], name=tab_set_name, classes=["tab-input"]
             )
 
             # <label>
-            label_node = _TabLabel(
+            label_node = TabLabel(
                 "", *title.children, **{"for": tab_id}, classes=["tab-label"]
             )
 
