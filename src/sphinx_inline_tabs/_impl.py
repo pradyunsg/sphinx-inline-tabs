@@ -25,23 +25,23 @@ class _GeneralHTMLTagElement(nodes.Element, nodes.General):
         attributes.pop("dupnames")
         attributes.pop("backrefs")
 
-        text = translator.starttag(node, node.tagname, **attributes)
+        text = translator.starttag(node, node._tagname, **attributes)
         translator.body.append(text.strip())
 
     @staticmethod
     def depart(translator, node):
-        if node.endtag:
-            translator.body.append(f"</{node.tagname}>")
+        if node._endtag:
+            translator.body.append(f"</{node._tagname}>")
 
 
 class _TabInput(_GeneralHTMLTagElement):
-    tagname = "input"
-    endtag = False
+    _tagname = "input"
+    _endtag = False
 
 
 class _TabLabel(_GeneralHTMLTagElement):
-    tagname = "label"
-    endtag = True
+    _tagname = "label"
+    _endtag = True
 
 
 class TabDirective(SphinxDirective):
