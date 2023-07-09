@@ -2,11 +2,13 @@
 
 import os
 
+from sphinx.application import Sphinx
+
 __version__ = "2023.04.21.dev14"
 __all__ = ["setup"]
 
 
-def setup(app):
+def setup(app: Sphinx):
     """Entry point for sphinx theming."""
     app.require_sphinx("3.0")
 
