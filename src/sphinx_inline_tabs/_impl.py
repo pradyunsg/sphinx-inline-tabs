@@ -35,11 +35,15 @@ class _GeneralHTMLTagElement(nodes.Element, nodes.General):
 
 
 class TabInput(_GeneralHTMLTagElement):
+    """Represents a radio button for a tab."""
+
     _tagname = "input"
     _endtag = False
 
 
 class TabLabel(_GeneralHTMLTagElement):
+    """Represents a label that holds the title for a tab."""
+
     _tagname = "label"
     _endtag = True
 

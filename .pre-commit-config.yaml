@@ -31,7 +31,7 @@ repos:
     rev: 6.3.0
     hooks:
       - id: pydocstyle
-        exclude: noxfile\.py|docs/conf\.py
+        exclude: noxfile\.py|docs/conf\.py|tests/docsets/.+
 
   - repo: https://github.com/asottile/blacken-docs
     rev: 1.13.0
@@ -42,3 +42,4 @@ repos:
     rev: v3.0.0-alpha.6
     hooks:
       - id: prettier
+        exclude: tests/test_.+
