@@ -25,7 +25,7 @@ def only_role_main(html: str) -> str:
 
 
 @pytest.mark.parametrize("format", ["markdown", "restructuredtext"])
-@pytest.mark.parametrize("builder", ["html"])
+@pytest.mark.parametrize("builder", ["html", "xml"])
 @pytest.mark.parametrize("docset", DOCSET_ROOT.glob("*"), ids=lambda path: path.name)
 def test_markup(
     format: str,
