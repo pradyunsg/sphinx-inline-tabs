@@ -18,3 +18,7 @@ test = [
   "pytest-xdist",
 ]
 doc = ["myst-parser", "furo"]
+
+[project.urls]
+Documentation = "https://sphinx-inline-tabs.readthedocs.io"
+Source = "https://github.com/pradyunsg/sphinx-inline-tabs"
