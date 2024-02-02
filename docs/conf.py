@@ -36,6 +36,10 @@ extensions = [
 ]
 templates_path = ["_templates"]
 
+myst_enable_extensions = [
+    "dollarmath",
+]
+
 #
 # -- Options for extlinks ----------------------------------------------------
 #
