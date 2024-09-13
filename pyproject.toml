@@ -19,6 +19,6 @@ test = [
 ]
 doc = ["myst-parser", "furo"]
 
-[project.urls]
+[tool.flit.metadata.urls]
 Documentation = "https://sphinx-inline-tabs.readthedocs.io"
 Source = "https://github.com/pradyunsg/sphinx-inline-tabs"
