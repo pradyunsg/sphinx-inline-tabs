@@ -164,10 +164,10 @@ Why not.
 
 ## Synchronisation
 
-Tabs across multiple sets are synchronised according to the label, unconditionally. This requires JavaScript to be enabled on the end user's browser and, thus, should be considered a progressive enhancement.
+Tabs across multiple sets are synchronised according to the label. This requires JavaScript to be enabled on the end user's browser and, thus, should be considered a progressive enhancement.
 
 ```{hint}
-Nearly all usage of tabbed content in documentation is based on something about the user which stays consistent throughout the reading (like their OS, or preferred language etc). That's why this behaviour is unconditional.
+Nearly all usage of tabbed content in documentation is based on something about the user which stays consistent throughout the reading (like their OS, or preferred language etc). That's why this behaviour is the default.
 ```
 
 ````{tab} Windows
@@ -194,6 +194,73 @@ $ make.bat html
 $ make html
 ```
 ````
+
+### Customisation
+
+```{versionadded} 2024.12.08
+
+```
+
+Synchronisation can be disable by adding the `:no-sync:` option to a tab. It can
+also be disabled from the config file.
+
+```py
+# disable sync globally
+tabs_default_sync_behavior = "none"  # default "tab-title"
+
+# disable sync globally for labels "One" and "Two"
+tabs_no_sync_labels = {"One", "Two"}  # default set()
+```
+
+The sync label can be overwritten with the `:sync: <label-name>` option.
+
+```rst
+.. tab:: One
+   :no-sync:
+
+   Sync is disabled for this one.
+
+.. tab:: Two
+   :sync: Five
+
+   Sync with label `Five`.
+
+.. tab:: Three
+
+   Three is an odd prime.
+
+.. tab:: Four
+
+   Four is not a perfect number.
+```
+
+```{tab} One
+:no-sync:
+Sync is disabled for this one.
+```
+
+```{tab} Two
+:sync: Five
+Sync with label `Five`.
+```
+
+```{tab} Three
+Three is an odd prime.
+```
+
+```{tab} Four
+Four is not a perfect number.
+```
+
+<!--  -->
+
+```{tab} One
+This tab is synchronized.
+```
+
+```{tab} Five
+Five is a nice number.
+```
 
 ## Nesting
 

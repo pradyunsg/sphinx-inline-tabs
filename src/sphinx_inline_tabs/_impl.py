@@ -1,13 +1,16 @@
 """The actual implementation."""
 
 import itertools
-from typing import List
+from typing import List, Set
 
 from docutils import nodes
 from docutils.parsers.rst import directives
 from sphinx.transforms.post_transforms import SphinxPostTransform
+from sphinx.util import logging
 from sphinx.util.docutils import SphinxDirective
 from sphinx.util.nodes import NodeMatcher
+
+logger = logging.getLogger(__name__)
 
 
 class TabContainer(nodes.container):
@@ -60,13 +63,42 @@ class TabDirective(SphinxDirective):
     has_content = True
     option_spec = {
         "new-set": directives.flag,
+        "sync": directives.unchanged_required,
+        "no-sync": directives.flag,
     }
 
     def run(self):
         """Parse a tabs directive."""
         self.assert_has_content()
 
-        container = TabContainer("", type="tab", new_set="new-set" in self.options)
+        default_sync_behavior = self.env.app.config.tabs_default_sync_behavior
+        no_sync_labels = self.env.app.config.tabs_no_sync_labels
+
+        sync_label = self.options.get("sync") or self.arguments[0]
+
+        no_sync = (
+            default_sync_behavior == "none"
+            or sync_label in no_sync_labels
+            or "no-sync" in self.options
+        )
+
+        if no_sync and self.options.get("sync"):
+            # no_sync with explicit sync label
+            logger.warning(
+                "Sychronisation is disabled for tab group '%s' in %s:%s [sphinx_inline_tabs]",
+                self.arguments[0],
+                self.reporter.source,
+                self.lineno,
+            )
+
+        container = TabContainer(
+            "",
+            type="tab",
+            new_set="new-set" in self.options,
+            label_text=self.arguments[0],
+            sync_label=sync_label,
+            no_sync=no_sync,
+        )
         self.set_source_info(container)
 
         # Handle the label (non-plain-text variants allowed)
@@ -164,10 +196,25 @@ class TabHtmlTransform(SphinxPostTransform):
 
         tab_set_name = f"tab-set--{set_counter}"
         node_counter = 0
+        labels: Set[str] = set()
         for node in tab_set:
             node_counter += 1
             tab_id = tab_set_name + f"-input--{node_counter}"
             title, content = node.children
+
+            if node.attributes["no_sync"] is False:
+                sync_label = node.attributes["sync_label"]
+                if sync_label in labels:
+                    logger.warning(
+                        "Duplicate sync label in tab group '%s' in %s:%s [sphinx_inline_tabs]",
+                        node.attributes["label_text"],
+                        node.source,
+                        node.line,
+                    )
+                labels.add(sync_label)
+                sync_attr = {"sync": sync_label}
+            else:
+                sync_attr = {"no_sync": True}
 
             # <input>, for storing state in radio boxes.
             input_node = TabInput(
@@ -176,7 +223,10 @@ class TabHtmlTransform(SphinxPostTransform):
 
             # <label>
             label_node = TabLabel(
-                "", *title.children, **{"for": tab_id}, classes=["tab-label"]
+                "",
+                *title.children,
+                **{"for": tab_id, **sync_attr},
+                classes=["tab-label"],
             )
 
             # For error messages
