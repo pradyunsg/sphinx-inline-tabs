@@ -3,13 +3,13 @@ requires = ["flit_core>=3.11,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name          = "sphinx_inline_tabs"
-license       = "MIT"
+name = "sphinx_inline_tabs"
+license = "MIT"
 license-files = ["LICENSE"]
-readme        = "README.md"
-authors       = [{name = "Pradyun Gedam", email = "mail@pradyunsg.me"}]
+readme = "README.md"
+authors = [{name = "Pradyun Gedam", email = "mail@pradyunsg.me"}]
 requires-python = ">=3.8"
-dependencies    = ["sphinx>=3"]
+dependencies = ["sphinx>=3"]
 dynamic = ["version", "description"]
 
 [project.optional-dependencies]
