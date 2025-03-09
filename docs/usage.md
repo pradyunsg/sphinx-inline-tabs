@@ -252,7 +252,7 @@ Three is an odd prime.
 Four is not a perfect number.
 ```
 
-<!--  -->
+<!-- force creation of new tab group -->
 
 ```{tab} One
 This tab is synchronized.

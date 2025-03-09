@@ -2,6 +2,8 @@
 
 import os
 
+from sphinx.config import ENUM
+
 __version__ = "2023.04.21.dev14"
 __all__ = ["setup"]
 
@@ -13,7 +15,12 @@ def setup(app):
     # We do imports from Sphinx, after validating the Sphinx version
     from ._impl import TabContainer, TabDirective, TabHtmlTransform, TabInput, TabLabel
 
-    app.add_config_value("tabs_default_sync_behavior", "tab-title", "html", types=[str])
+    app.add_config_value(
+        "tabs_default_sync_behavior",
+        "tab-title",
+        "html",
+        types=ENUM("tab-title", "none"),
+    )
     app.add_config_value("tabs_no_sync_labels", set(), "html", types=[set])
     app.add_directive("tab", TabDirective)
     app.add_post_transform(TabHtmlTransform)
