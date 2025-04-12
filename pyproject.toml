@@ -1,17 +1,18 @@
 [build-system]
-requires = ["flit_core >=2,<4"]
+requires = ["flit_core>=3.11,<4"]
 build-backend = "flit_core.buildapi"
 
-[tool.flit.metadata]
-module = "sphinx_inline_tabs"
-author = "Pradyun Gedam"
-author-email = "mail@pradyunsg.me"
-home-page = "https://github.com/pradyunsg/sphinx-inline-tabs"
-description-file = "README.md"
+[project]
+name = "sphinx_inline_tabs"
+license = "MIT"
+license-files = ["LICENSE"]
+readme = "README.md"
+authors = [{name = "Pradyun Gedam", email = "mail@pradyunsg.me"}]
 requires-python = ">=3.8"
-requires = ["sphinx >= 3"]
+dependencies = ["sphinx>=3"]
+dynamic = ["version", "description"]
 
-[tool.flit.metadata.requires-extra]
+[project.optional-dependencies]
 test = [
   "pytest",
   "pytest-cov",
@@ -20,5 +21,5 @@ test = [
 doc = ["myst-parser", "furo"]
 
 [project.urls]
+Homepage = "https://github.com/pradyunsg/sphinx-inline-tabs"
 Documentation = "https://sphinx-inline-tabs.readthedocs.io"
-Source = "https://github.com/pradyunsg/sphinx-inline-tabs"
