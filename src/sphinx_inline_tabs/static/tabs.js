@@ -7,7 +7,10 @@ function ready() {
 
   for (const label of li) {
     label.onclick = onLabelClick;
-    const text = label.textContent;
+    const text = label.getAttribute("sync");
+    if (text == null) {
+      continue;
+    }
     if (!labels_by_text[text]) {
       labels_by_text[text] = [];
     }
@@ -23,7 +26,11 @@ function ready() {
 
 function onLabelClick() {
   // Activate other labels with the same text.
-  for (label of labels_by_text[this.textContent]) {
+  text = this.getAttribute("sync");
+  if (text == null) {
+    return;
+  }
+  for (label of labels_by_text[text]) {
     label.previousSibling.checked = true;
   }
 }
