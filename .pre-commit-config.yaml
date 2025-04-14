@@ -1,21 +1,21 @@
 repos:
   - repo: https://github.com/psf/black
-    rev: 23.7.0
+    rev: 25.1.0
     hooks:
       - id: black
 
   - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
+    rev: 6.0.1
     hooks:
       - id: isort
 
   - repo: https://github.com/PyCQA/flake8
-    rev: 6.1.0
+    rev: 7.2.0
     hooks:
       - id: flake8
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v5.0.0
     hooks:
       - id: check-builtin-literals
       - id: check-added-large-files
@@ -34,12 +34,12 @@ repos:
         exclude: noxfile\.py|docs/conf\.py|tests/docsets/.+
 
   - repo: https://github.com/asottile/blacken-docs
-    rev: 1.15.0
+    rev: 1.19.1
     hooks:
       - id: blacken-docs
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.1
+    rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
         exclude: tests/test_.+
