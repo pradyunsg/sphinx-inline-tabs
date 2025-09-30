@@ -23,7 +23,7 @@ class _GeneralHTMLTagElement(nodes.Element, nodes.General):
         attributes.pop("classes")
         attributes.pop("names")
         attributes.pop("dupnames")
-        attributes.pop("backrefs")
+        attributes.pop("backrefs", None)
 
         if node._endtag:
             text = translator.starttag(node, node._tagname, **attributes)
