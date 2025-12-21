@@ -14,8 +14,11 @@ dynamic = ["version", "description"]
 
 [project.optional-dependencies]
 test = [
+  "beautifulsoup4",
+  "myst-parser",
   "pytest",
   "pytest-cov",
+  "pytest-regressions",
   "pytest-xdist",
 ]
 doc = ["myst-parser", "furo"]
