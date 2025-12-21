@@ -4,7 +4,7 @@ import os
 
 from sphinx.application import Sphinx
 
-__version__ = "2025.12.21.14"
+__version__ = "2025.12.21.dev15"
 __all__ = ["setup"]
 
 
