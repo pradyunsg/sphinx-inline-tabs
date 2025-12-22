@@ -1,12 +1,12 @@
 """Tests to ensure that the generated markup is correct.
 """
 
+import re
 from pathlib import Path
 
 import bs4
 import pytest
 from pytest_regressions.file_regression import FileRegressionFixture
-from sphinx.testing.path import path as sphinx_path
 from sphinx.testing.util import SphinxTestApp
 
 DOCSET_ROOT = Path(__file__).parent / "docsets"
@@ -21,7 +21,18 @@ def only_role_main(html: str) -> str:
     soup = bs4.BeautifulSoup(html, "html.parser")
     node = soup.find(attrs={"role": "main"})
     assert node
+    # Remove clearer div (added in Sphinx 8) for consistent output across versions
+    for clearer in node.find_all("div", class_="clearer"):
+        clearer.decompose()
     return node.prettify(formatter=bs4.formatter.HTMLFormatter(indent=2))
+
+
+def normalise_xml_source(xml: str, docset: Path) -> str:
+    """Normalise the source attribute in XML to use relative paths."""
+    # Replace absolute path with relative path for consistent output across machines
+    return re.sub(
+        rf'source="[^"]*{docset.name}/', f'source="tests/docsets/{docset.name}/', xml
+    )
 
 
 @pytest.mark.parametrize("format", ["markdown", "restructuredtext"])
@@ -35,8 +46,8 @@ def test_markup(
     tmpdir: str,
 ) -> None:
     # GIVEN
-    srcdir = sphinx_path(docset)
-    builddir = sphinx_path(tmpdir)
+    srcdir = Path(docset)
+    builddir = Path(tmpdir)
     app = SphinxTestApp(srcdir=srcdir, builddir=builddir, buildername=builder)
 
     infile = Path(app.srcdir) / INPUT_FILES[format]
@@ -49,4 +60,6 @@ def test_markup(
     content = outfile.read_text()
     if builder == "html":
         content = only_role_main(content)
+    elif builder == "xml":
+        content = normalise_xml_source(content, docset)
     file_regression.check(content, extension=f".{builder}")

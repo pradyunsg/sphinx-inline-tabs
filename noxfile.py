@@ -1,5 +1,6 @@
 """Development automation
 """
+import argparse
 import datetime
 import glob
 import os
@@ -80,7 +81,13 @@ def lint(session):
 def test(session):
     _install_this_project_with_flit(session, extras=["test"])
 
-    args = session.posargs or ["-n", "auto", "--cov", PACKAGE_NAME]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--sphinx")
+    parsed, posargs = parser.parse_known_args(session.posargs)
+    if parsed.sphinx:
+        session.install(f"sphinx=={parsed.sphinx}.*")
+
+    args = posargs or ["-n", "auto", "--cov", PACKAGE_NAME]
     session.run("pytest", *args)
 
 

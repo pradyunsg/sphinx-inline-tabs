@@ -1,4 +1,5 @@
 # Python stuff
+.coverage
 .nox
 /build
 /dist
