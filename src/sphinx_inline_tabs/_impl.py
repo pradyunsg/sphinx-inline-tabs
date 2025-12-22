@@ -1,7 +1,6 @@
 """The actual implementation."""
 
 import itertools
-from typing import List
 
 from docutils import nodes
 from docutils.parsers.rst import directives
@@ -95,11 +94,11 @@ class TabHtmlTransform(SphinxPostTransform):
 
     def run(self):
         """Locate and replace `TabContainer`s."""
-        self.stack = []  # type: List[List[TabContainer]]
+        self.stack: list[list[TabContainer]] = []
         self.counter = itertools.count(start=0, step=1)
 
         matcher = NodeMatcher(TabContainer)
-        for node in self.document.traverse(matcher):  # type: TabContainer
+        for node in self.document.traverse(matcher):
             self._process_one_node(node)
 
         while self.stack:
@@ -153,7 +152,7 @@ class TabHtmlTransform(SphinxPostTransform):
         else:
             self.stack.append([node])
 
-    def finalize_set(self, tab_set: List[TabContainer], set_counter: int):
+    def finalize_set(self, tab_set: list[TabContainer], set_counter: int):
         """Add these TabContainers as a single-set-of-tabs."""
         assert tab_set
 

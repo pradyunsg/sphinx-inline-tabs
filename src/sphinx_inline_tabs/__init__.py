@@ -10,7 +10,7 @@ __all__ = ["setup"]
 
 def setup(app: Sphinx):
     """Entry point for sphinx theming."""
-    app.require_sphinx("3.0")
+    app.require_sphinx("7.0")
 
     # We do imports from Sphinx, after validating the Sphinx version
     from ._impl import TabContainer, TabDirective, TabHtmlTransform, TabInput, TabLabel

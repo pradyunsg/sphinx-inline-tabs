@@ -8,8 +8,8 @@ license = "MIT"
 license-files = ["LICENSE"]
 readme = "README.md"
 authors = [{name = "Pradyun Gedam", email = "mail@pradyunsg.me"}]
-requires-python = ">=3.8"
-dependencies = ["sphinx>=3"]
+requires-python = ">=3.10"
+dependencies = ["sphinx>=7"]
 dynamic = ["version", "description"]
 
 [project.optional-dependencies]
