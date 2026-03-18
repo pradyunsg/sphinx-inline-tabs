@@ -15,6 +15,7 @@ dynamic = ["version", "description"]
 [project.optional-dependencies]
 test = [
   "beautifulsoup4",
+  "docutils==0.21.2",
   "myst-parser",
   "pytest",
   "pytest-cov",
