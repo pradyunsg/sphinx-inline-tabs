@@ -17,8 +17,8 @@ def setup(app: Sphinx):
 
     app.add_directive("tab", TabDirective)
     app.add_post_transform(TabHtmlTransform)
-    app.add_node(TabInput, html=(TabInput.visit, TabInput.depart))
-    app.add_node(TabLabel, html=(TabLabel.visit, TabLabel.depart))
+    app.add_node(TabInput, html=(TabInput.visit, TabInput.depart), dirhtml=(TabInput.visit, TabInput.depart))
+    app.add_node(TabLabel, html=(TabLabel.visit, TabLabel.depart), dirhtml=(TabLabel.visit, TabLabel.depart))
     app.add_node(TabContainer, xml=(lambda _, __: None, lambda _, __: None))
 
     # Include our static assets
