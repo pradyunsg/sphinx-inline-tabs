@@ -76,6 +76,8 @@ class TabDirective(SphinxDirective):
         #
         # We want to directly populate the children here.
         label = nodes.label("", "", *textnodes)
+        label.source, label.line = self.get_source_info()
+        label["translatable"] = True
 
         # Handle the content
         content = nodes.container("", is_div=True, classes=["tab-content"])
