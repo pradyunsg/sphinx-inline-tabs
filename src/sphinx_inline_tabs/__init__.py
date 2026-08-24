@@ -15,10 +15,29 @@ def setup(app: Sphinx):
     # We do imports from Sphinx, after validating the Sphinx version
     from ._impl import TabContainer, TabDirective, TabHtmlTransform, TabInput, TabLabel
 
+    app.add_config_value(
+        name="inline_tabs_builders",
+        default=["html", "dirhtml"],
+        rebuild="env",
+        types=list,
+    )
+
     app.add_directive("tab", TabDirective)
     app.add_post_transform(TabHtmlTransform)
-    app.add_node(TabInput, html=(TabInput.visit, TabInput.depart))
-    app.add_node(TabLabel, html=(TabLabel.visit, TabLabel.depart))
+    app.add_node(
+        TabInput,
+        **{
+            builder: (TabInput.visit, TabInput.depart)
+            for builder in app.config.inline_tabs_builders
+        },
+    )
+    app.add_node(
+        TabLabel,
+        **{
+            builder: (TabLabel.visit, TabLabel.depart)
+            for builder in app.config.inline_tabs_builders
+        },
+    )
     app.add_node(TabContainer, xml=(lambda _, __: None, lambda _, __: None))
 
     # Include our static assets
