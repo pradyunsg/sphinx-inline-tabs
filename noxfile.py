@@ -1,5 +1,5 @@
-"""Development automation
-"""
+"""Development automation"""
+
 import argparse
 import datetime
 import glob
@@ -104,13 +104,13 @@ def get_release_versions(version_file):
         else:
             raise RuntimeError("Could not find current version.")
 
-    today = datetime.date.today()
+    today = datetime.datetime.now(tz=datetime.timezone.utc).date()
     today_date = today.strftime("%Y.%m.%d")
     if last_release_date.startswith(today_date):
         release_version = today_date
     else:
         release_version = today.strftime(f"%Y.%m.%d.{last_release_number}")
-    next_version = today.strftime(f"%Y.%m.%d.dev{last_release_number+1}")
+    next_version = today.strftime(f"%Y.%m.%d.dev{last_release_number + 1}")
 
     return release_version, next_version
 
@@ -150,10 +150,13 @@ def release(session):
 
     # Tag the commit
     session.run(
-        # fmt: off
-        "git", "tag", release_version, "-m", f"Release {release_version}", "-s",
+        "git",
+        "tag",
+        release_version,
+        "-m",
+        f"Release {release_version}",
+        "-s",
         external=True,
-        # fmt: on
     )
 
     # Prepare back-to-development commit

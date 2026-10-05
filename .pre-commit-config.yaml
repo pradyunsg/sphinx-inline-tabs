@@ -1,19 +1,4 @@
 repos:
-  - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 23.7.0
-    hooks:
-      - id: black
-
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-
-  - repo: https://github.com/PyCQA/flake8
-    rev: 6.1.0
-    hooks:
-      - id: flake8
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
@@ -27,29 +12,20 @@ repos:
       - id: forbid-new-submodules
       - id: trailing-whitespace
 
-  - repo: https://github.com/PyCQA/pydocstyle.git
-    rev: 6.3.0
-    hooks:
-      - id: pydocstyle
-        exclude: noxfile\.py|docs/conf\.py|tests/docsets/.+
-
-  - repo: https://github.com/asottile/blacken-docs
-    rev: 1.15.0
-    hooks:
-      - id: blacken-docs
-
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.1
+  - repo: local
     hooks:
       - id: prettier
-        exclude: tests/test_.+
+        name: Prettier
+        entry: prettier --write --ignore-unknown
+        language: node
+        additional_dependencies: [prettier]
+        types: [text]
+        pass_filenames: true
+        exclude: src/furo/theme/.*|docs/(recommendations|reference/admonitions).md
 
-  - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.34.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.10
     hooks:
-      - id: check-github-workflows
-
-  - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.7
-    hooks:
-      - id: actionlint
+      - id: ruff-check
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format

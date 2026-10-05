@@ -1,7 +1,7 @@
 """The actual implementation."""
 
 import itertools
-from typing import List
+from typing import ClassVar
 
 from docutils import nodes
 from docutils.parsers.rst import directives
@@ -58,7 +58,7 @@ class TabDirective(SphinxDirective):
     required_arguments = 1  # directive takes a single argument.
     final_argument_whitespace = True  # this allows that argument to contain spaces.
     has_content = True
-    option_spec = {
+    option_spec: ClassVar[dict] = {
         "new-set": directives.flag,
     }
 
@@ -70,7 +70,7 @@ class TabDirective(SphinxDirective):
         self.set_source_info(container)
 
         # Handle the label (non-plain-text variants allowed)
-        textnodes, messages = self.state.inline_text(self.arguments[0], self.lineno)
+        textnodes, _messages = self.state.inline_text(self.arguments[0], self.lineno)
         # The signature of this object is:
         #     __init__(self, rawsource='', text='', *children, **attributes)
         #
@@ -91,11 +91,11 @@ class TabHtmlTransform(SphinxPostTransform):
     """Transform output of TabDirective into usable chunks."""
 
     default_priority = 200
-    formats = ["html"]
+    formats: ClassVar[list[str]] = ["html"]
 
     def run(self):
         """Locate and replace `TabContainer`s."""
-        self.stack = []  # type: List[List[TabContainer]]
+        self.stack: list[list[TabContainer]] = []
         self.counter = itertools.count(start=0, step=1)
 
         matcher = NodeMatcher(TabContainer)
@@ -153,7 +153,7 @@ class TabHtmlTransform(SphinxPostTransform):
         else:
             self.stack.append([node])
 
-    def finalize_set(self, tab_set: List[TabContainer], set_counter: int):
+    def finalize_set(self, tab_set: list[TabContainer], set_counter: int):
         """Add these TabContainers as a single-set-of-tabs."""
         assert tab_set
 
@@ -163,9 +163,7 @@ class TabHtmlTransform(SphinxPostTransform):
         container.parent = parent
 
         tab_set_name = f"tab-set--{set_counter}"
-        node_counter = 0
-        for node in tab_set:
-            node_counter += 1
+        for node_counter, node in enumerate(tab_set, start=1):
             tab_id = tab_set_name + f"-input--{node_counter}"
             title, content = node.children
 
