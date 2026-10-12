@@ -1,5 +1,5 @@
-"""Development automation
-"""
+"""Development automation"""
+
 import argparse
 import datetime
 import glob
