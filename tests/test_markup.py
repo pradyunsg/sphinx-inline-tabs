@@ -1,5 +1,4 @@
-"""Tests to ensure that the generated markup is correct.
-"""
+"""Tests to ensure that the generated markup is correct."""
 
 import re
 from pathlib import Path
