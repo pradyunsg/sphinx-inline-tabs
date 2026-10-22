@@ -67,14 +67,14 @@ def docs(session):
 
 @nox.session
 def lint(session):
-    session.install("pre-commit")
+    session.install("prek")
 
     args = list(session.posargs)
     args.append("--all-files")
     if "CI" in os.environ:
         args.append("--show-diff-on-failure")
 
-    session.run("pre-commit", "run", "--all-files", *args)
+    session.run("prek", "run", "--all-files", *args)
 
 
 @nox.session
@@ -104,7 +104,7 @@ def get_release_versions(version_file):
         else:
             raise RuntimeError("Could not find current version.")
 
-    today = datetime.datetime.now(tz=datetime.timezone.utc).date()
+    today = datetime.datetime.now(tz=datetime.UTC).date()
     today_date = today.strftime("%Y.%m.%d")
     if last_release_date.startswith(today_date):
         release_version = today_date
