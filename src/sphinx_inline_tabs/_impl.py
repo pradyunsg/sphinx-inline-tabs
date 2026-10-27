@@ -99,7 +99,7 @@ class TabHtmlTransform(SphinxPostTransform):
         self.counter = itertools.count(start=0, step=1)
 
         matcher = NodeMatcher(TabContainer)
-        for node in self.document.traverse(matcher):  # type: TabContainer
+        for node in list(self.document.findall(matcher)):  # type: TabContainer
             self._process_one_node(node)
 
         while self.stack:
