@@ -24,6 +24,19 @@ extensions = [
 ]
 ```
 
+## Configuration
+
+You can specify which builders to render inline tabs for with the option
+`inline_tabs_builders` (default: `html` and `dirhtml`):
+
+```python
+inline_tabs_builders = [
+    "html",
+    "dirhtml",
+    ...,
+]
+```
+
 ## Features
 
 - **Elegant design**: Small footprint in the markup and generated website, while looking good.
